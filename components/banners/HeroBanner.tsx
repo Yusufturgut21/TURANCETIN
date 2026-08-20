@@ -100,7 +100,10 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
         ) : null}
         {current.buttonText && current.buttonLink ? (
           <div className="mt-8">
-            <Link href={current.buttonLink} className="btn-primary">
+            <Link
+              href={current.buttonLink}
+              className="btn-primary bg-white text-navy shadow-[0_12px_30px_rgba(0,0,0,0.25)] hover:bg-white/95"
+            >
               {current.buttonText}
             </Link>
           </div>
@@ -113,7 +116,7 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
             type="button"
             onClick={prev}
             aria-label="Önceki"
-            className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2.5 text-navy shadow-sm backdrop-blur transition hover:bg-white md:left-6 md:p-3"
+            className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/20 bg-white/15 p-2.5 text-white shadow-sm backdrop-blur-md transition hover:bg-white/25 md:left-6 md:p-3"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -121,7 +124,7 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
             type="button"
             onClick={next}
             aria-label="Sonraki"
-            className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2.5 text-navy shadow-sm backdrop-blur transition hover:bg-white md:right-6 md:p-3"
+            className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/20 bg-white/15 p-2.5 text-white shadow-sm backdrop-blur-md transition hover:bg-white/25 md:right-6 md:p-3"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -133,7 +136,7 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
                 aria-label={`Banner ${i + 1}`}
                 onClick={() => setIndex(i)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === index ? "w-10 bg-white" : "w-2.5 bg-white/45 hover:bg-white/70"
+                  i === index ? "w-10 bg-white" : "w-2.5 bg-white/40 hover:bg-white/70"
                 }`}
               />
             ))}

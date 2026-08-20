@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { formatPrice } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
 
 type ProductCardProps = {
   product: {
@@ -33,14 +34,14 @@ export function ProductCard({ product }: ProductCardProps) {
     <article className="card-product group flex h-full flex-col overflow-hidden">
       <Link
         href={`/urun/${product.slug}`}
-        className="relative block aspect-[4/3] bg-surface"
+        className="relative block aspect-[4/3] overflow-hidden bg-gradient-to-b from-surface to-white"
       >
         <SmartImage
           src={image}
           alt={product.title}
           fill
           sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-          className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+          className="object-contain p-3 transition-transform duration-700 ease-out group-hover:scale-[1.06]"
         />
         <div className="absolute left-3 top-3 flex flex-col gap-1.5">
           {product.isCampaign ? (
@@ -50,52 +51,47 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col p-4">
+      <div className="flex flex-1 flex-col px-4 pb-4 pt-3.5">
         {product.brand ? (
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
+          <p className="mb-1 text-[0.7rem] font-semibold tracking-[0.14em] text-muted uppercase">
             {product.brand}
           </p>
         ) : null}
         <Link href={`/urun/${product.slug}`}>
-          <h3 className="line-clamp-2 text-[0.95rem] font-semibold text-navy transition-colors group-hover:text-navy-hover">
+          <h3 className="line-clamp-2 text-[0.95rem] font-semibold leading-snug text-navy transition-colors group-hover:text-accent">
             {product.title}
           </h3>
         </Link>
-        {product.shortDescription ? (
-          <p className="mt-2 line-clamp-2 text-sm text-muted">
-            {product.shortDescription}
-          </p>
-        ) : null}
 
-        <div className="mt-auto pt-4">
-          {hasPrice ? (
-            <div className="mb-3">
-              {hasDiscount ? (
-                <div className="flex items-baseline gap-2">
-                  <span className="text-sm text-muted line-through">
+        <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+          <div>
+            {hasPrice ? (
+              hasDiscount ? (
+                <div className="flex flex-col">
+                  <span className="text-xs text-muted line-through">
                     {formatPrice(product.price!)}
                   </span>
-                  <span className="text-lg font-semibold text-navy">
+                  <span className="text-lg font-semibold tracking-tight text-navy">
                     {formatPrice(product.discountedPrice!)}
                   </span>
                 </div>
               ) : (
-                <span className="text-lg font-semibold text-navy">
+                <span className="text-lg font-semibold tracking-tight text-navy">
                   {formatPrice(product.price!)}
                 </span>
-              )}
-            </div>
-          ) : (
-            <p className="mb-3 text-sm font-medium text-anthracite">
-              Fiyat için iletişime geçin
-            </p>
-          )}
-
+              )
+            ) : (
+              <p className="text-sm font-medium text-anthracite">
+                Fiyat için iletişime geçin
+              </p>
+            )}
+          </div>
           <Link
             href={`/urun/${product.slug}`}
-            className="btn-outline w-full text-sm"
+            aria-label={`${product.title} incele`}
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy text-white transition group-hover:bg-accent"
           >
-            İncele
+            <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
       </div>

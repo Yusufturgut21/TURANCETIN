@@ -60,7 +60,7 @@ export default async function HomePage() {
       <HeroBanner banners={banners} />
 
       {categories.length > 0 ? (
-        <section className="border-y border-border bg-surface py-14 md:py-16">
+        <section className="py-16 md:py-20">
           <div className="container-main">
             <FadeIn>
               <SectionHeading
@@ -74,7 +74,8 @@ export default async function HomePage() {
       ) : null}
 
       {campaignProducts.items.length > 0 ? (
-        <section className="container-main py-14 md:py-16">
+        <section className="py-16 md:py-20">
+          <div className="container-main">
           <FadeIn>
             <div className="mb-8 flex items-end justify-between gap-4 md:mb-10">
               <SectionHeading
@@ -84,12 +85,12 @@ export default async function HomePage() {
               />
               <Link
                 href="/urunler?campaign=1"
-                className="hidden text-sm font-semibold text-navy hover:underline md:inline"
+                className="hidden text-sm font-semibold text-navy hover:text-accent md:inline"
               >
                 Tümünü gör →
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 md:gap-4">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 md:gap-5">
               {campaignProducts.items.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
@@ -97,12 +98,13 @@ export default async function HomePage() {
             <div className="mt-6 text-center md:hidden">
               <Link
                 href="/urunler?campaign=1"
-                className="text-sm font-semibold text-navy hover:underline"
+                className="text-sm font-semibold text-navy hover:text-accent"
               >
                 Tümünü gör →
               </Link>
             </div>
           </FadeIn>
+          </div>
         </section>
       ) : null}
 
@@ -130,15 +132,15 @@ export default async function HomePage() {
         </FadeIn>
       ) : null}
 
-      <section className="container-main py-14 md:py-16">
+      <section className="container-main py-16 md:py-20">
         <FadeIn>
-          <div className="overflow-hidden rounded-xl bg-navy px-6 py-10 text-white md:px-10 md:py-12">
+          <div className="overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0b1f36] via-[#123153] to-[#1a4d6d] px-6 py-12 text-white shadow-[0_24px_60px_rgba(11,31,54,0.22)] md:px-12 md:py-14">
             <div className="grid items-center gap-8 md:grid-cols-[1.4fr_1fr]">
               <div>
-                <h2 className="font-display text-2xl font-semibold md:text-3xl">
+                <h2 className="font-display text-2xl font-semibold tracking-tight md:text-4xl">
                   WhatsApp ile hızlı bilgi alın
                 </h2>
-                <p className="mt-3 max-w-xl text-white/80">
+                <p className="mt-4 max-w-xl text-base leading-relaxed text-white/75">
                   Ürün, stok ve güncel fiyat bilgisi için bize WhatsApp veya
                   telefon üzerinden ulaşabilirsiniz.
                 </p>

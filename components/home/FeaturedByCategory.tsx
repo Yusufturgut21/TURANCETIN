@@ -182,7 +182,7 @@ export function FeaturedByCategory({
   if (!featuredProducts.length && categories.length === 0) return null;
 
   return (
-    <section className="container-main py-14 md:py-16">
+    <section className="container-main py-16 md:py-20">
       <div className="mb-6 flex flex-col gap-5 md:mb-8 md:flex-row md:items-end md:justify-between md:gap-8">
         <SectionHeading
           title="Öne Çıkan Ürünler"
@@ -207,10 +207,10 @@ export function FeaturedByCategory({
                   type="button"
                   onClick={(e) => onTabClick(tab.slug, e)}
                   className={cn(
-                    "shrink-0 select-none rounded-md border px-3.5 py-2 text-sm font-medium transition",
+                    "shrink-0 select-none rounded-full border px-4 py-2 text-sm font-medium transition",
                     isActive
-                      ? "border-navy bg-navy text-white"
-                      : "border-border bg-white text-navy hover:border-navy/35"
+                      ? "border-navy bg-navy text-white shadow-[0_8px_18px_rgba(11,31,54,0.18)]"
+                      : "border-transparent bg-white/80 text-navy shadow-sm hover:bg-white"
                   )}
                 >
                   {tab.name}
@@ -230,7 +230,7 @@ export function FeaturedByCategory({
 
       <div className={cn("relative", loading && "opacity-60")}>
         {products.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 md:gap-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 md:gap-5">
             {products.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}

@@ -85,13 +85,13 @@ export function Header({
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-white/95 backdrop-blur">
-      <div className="hidden border-b border-border bg-surface text-sm md:block">
-        <div className="container-main flex h-9 items-center justify-between text-muted">
-          <span>Beyaz eşya ve küçük ev aletleri</span>
+    <header className="site-header sticky top-0 z-50">
+      <div className="hidden border-b border-border/60 bg-navy text-sm text-white/85 md:block">
+        <div className="container-main flex h-9 items-center justify-between">
+          <span className="tracking-wide">Beyaz eşya ve küçük ev aletleri</span>
           <div className="flex items-center gap-4">
             {phone ? (
-              <a href={`tel:${phone.replace(/\s/g, "")}`} className="inline-flex items-center gap-1.5 hover:text-navy">
+              <a href={`tel:${phone.replace(/\s/g, "")}`} className="inline-flex items-center gap-1.5 hover:text-white">
                 <Phone className="h-3.5 w-3.5" />
                 {phone}
               </a>
@@ -101,7 +101,7 @@ export function Header({
                 href={getWhatsAppUrl(whatsapp, "Merhaba, bilgi almak istiyorum.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-navy"
+                className="inline-flex items-center gap-1.5 hover:text-white"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
                 WhatsApp
@@ -143,7 +143,7 @@ export function Header({
               <ChevronDown className="h-4 w-4" />
             </Link>
             {mega ? (
-              <div className="absolute left-0 top-full z-50 w-[720px] rounded-lg border border-border bg-white p-4 shadow-xl">
+              <div className="absolute left-0 top-full z-50 w-[720px] rounded-2xl border border-border/80 bg-white/95 p-4 shadow-[0_24px_60px_rgba(11,31,54,0.14)] backdrop-blur">
                 <div className="grid grid-cols-3 gap-2">
                   {categories.slice(0, 12).map((cat) => (
                     <Link
