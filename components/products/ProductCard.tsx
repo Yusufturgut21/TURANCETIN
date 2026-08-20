@@ -89,9 +89,9 @@ export function ProductCard({ product }: ProductCardProps) {
           <Link
             href={`/urun/${product.slug}`}
             aria-label={`${product.title} incele`}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-white transition group-hover:bg-accent sm:h-10 sm:w-10"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-navy/10 bg-surface text-navy transition hover:border-navy hover:bg-navy hover:text-white sm:h-10 sm:w-10"
           >
-            <ArrowUpRight className="h-4 w-4" />
+            <ArrowUpRight className="h-4 w-4 stroke-[2.25]" aria-hidden />
           </Link>
         </div>
       </div>
