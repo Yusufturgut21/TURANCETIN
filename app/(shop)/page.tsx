@@ -31,14 +31,17 @@ export default async function HomePage() {
         getActiveBanners(),
         getActiveCategories(),
         getProducts({ featured: true, limit: 8 }),
-        getProducts({ campaign: true, limit: 200 }),
+        getProducts({ campaign: true, limit: 1000 }),
         getSiteSettings(),
       ]);
 
     if (categories.length > 0) {
       const entries = await Promise.all(
         categories.map(async (category) => {
-          const result = await getProducts({ category: category.slug, limit: 200 });
+          const result = await getProducts({
+            category: category.slug,
+            limit: 1000,
+          });
           return [category.slug, result.items] as const;
         })
       );

@@ -87,42 +87,24 @@ export function FeaturedByCategory({
         return;
       }
 
-      if (active === CAMPAIGN_KEY) {
-        if (campaignProducts.length) {
-          setProducts(campaignProducts);
-        } else {
-          setProducts([]);
-        }
-        setLoading(true);
-        try {
-          const res = await fetch("/api/products?campaign=1&limit=200");
-          const json = (await res.json()) as {
-            success?: boolean;
-            data?: { items?: ProductItem[] };
-          };
-          if (!cancelled && json.success && Array.isArray(json.data?.items)) {
-            setProducts(json.data.items);
-          }
-        } catch {
-          // önbellekteki liste kalsın
-        } finally {
-          if (!cancelled) setLoading(false);
-        }
-        return;
-      }
+      setLoading(true);
 
-      const cached = productsByCategory[active];
-      if (cached?.length) {
-        setProducts(cached);
+      const endpoint =
+        active === CAMPAIGN_KEY
+          ? "/api/products?campaign=1&limit=1000"
+          : `/api/products?category=${encodeURIComponent(active)}&limit=1000`;
+
+      // Önce varsa önbelleği göster, sonra API'den tam listeyi al
+      if (active === CAMPAIGN_KEY && campaignProducts.length) {
+        setProducts(campaignProducts);
+      } else if (active !== CAMPAIGN_KEY && productsByCategory[active]?.length) {
+        setProducts(productsByCategory[active]);
       } else {
         setProducts([]);
       }
 
-      setLoading(true);
       try {
-        const res = await fetch(
-          `/api/products?category=${encodeURIComponent(active)}&limit=200`
-        );
+        const res = await fetch(endpoint, { cache: "no-store" });
         const json = (await res.json()) as {
           success?: boolean;
           data?: { items?: ProductItem[] };

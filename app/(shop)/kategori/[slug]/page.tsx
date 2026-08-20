@@ -27,7 +27,7 @@ export default async function CategoryPage({ params }: Params) {
   const category = await getCategoryBySlug(slug);
   if (!category) notFound();
 
-  const result = await getProducts({ category: category.slug, limit: 24 });
+  const result = await getProducts({ category: category.slug, limit: 1000 });
 
   return (
     <div className="container-main py-10 md:py-14">
