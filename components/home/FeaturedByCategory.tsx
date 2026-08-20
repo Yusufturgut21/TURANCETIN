@@ -95,7 +95,7 @@ export function FeaturedByCategory({
         }
         setLoading(true);
         try {
-          const res = await fetch("/api/products?campaign=1&limit=8");
+          const res = await fetch("/api/products?campaign=1&limit=200");
           const json = (await res.json()) as {
             success?: boolean;
             data?: { items?: ProductItem[] };
@@ -121,7 +121,7 @@ export function FeaturedByCategory({
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/products?category=${encodeURIComponent(active)}&limit=8`
+          `/api/products?category=${encodeURIComponent(active)}&limit=200`
         );
         const json = (await res.json()) as {
           success?: boolean;

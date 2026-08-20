@@ -188,9 +188,6 @@ export function Header({
           <Link href="/urunler?campaign=1" className="rounded-md px-3 py-2 text-sm font-medium text-anthracite hover:bg-surface hover:text-navy">
             Kampanyalı Ürünler
           </Link>
-          <Link href="/markalar" className="rounded-md px-3 py-2 text-sm font-medium text-anthracite hover:bg-surface hover:text-navy">
-            Markalar
-          </Link>
           <Link href="/hakkimizda" className="rounded-md px-3 py-2 text-sm font-medium text-anthracite hover:bg-surface hover:text-navy">
             Hakkımızda
           </Link>
@@ -305,9 +302,6 @@ export function Header({
             <div className="my-3 border-t border-border" />
             <Link href="/urunler?campaign=1" className="block rounded-md px-3 py-2.5 text-sm font-medium" onClick={() => setOpen(false)}>
               Kampanyalı Ürünler
-            </Link>
-            <Link href="/markalar" className="block rounded-md px-3 py-2.5 text-sm font-medium" onClick={() => setOpen(false)}>
-              Markalar
             </Link>
             <Link href="/hakkimizda" className="block rounded-md px-3 py-2.5 text-sm font-medium" onClick={() => setOpen(false)}>
               Hakkımızda

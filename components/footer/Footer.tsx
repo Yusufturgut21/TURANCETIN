@@ -59,7 +59,6 @@ export function Footer({ settings }: { settings: Settings }) {
           <ul className="space-y-2 text-sm text-white/80">
             <li><Link href="/urunler" className="hover:text-white">Ürünler</Link></li>
             <li><Link href="/urunler?campaign=1" className="hover:text-white">Kampanyalı Ürünler</Link></li>
-            <li><Link href="/markalar" className="hover:text-white">Markalar</Link></li>
             <li><Link href="/hakkimizda" className="hover:text-white">Hakkımızda</Link></li>
             <li><Link href="/iletisim" className="hover:text-white">İletişim</Link></li>
           </ul>

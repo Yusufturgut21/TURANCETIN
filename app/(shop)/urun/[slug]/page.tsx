@@ -125,12 +125,9 @@ export default async function ProductDetailPage({ params }: Params) {
           </div>
 
           {product.brand ? (
-            <Link
-              href={`/marka/${encodeURIComponent(product.brand.toLowerCase().replace(/\s+/g, "-"))}`}
-              className="text-sm font-semibold uppercase tracking-wide text-muted hover:text-navy"
-            >
+            <p className="text-sm font-semibold uppercase tracking-wide text-muted">
               {product.brand}
-            </Link>
+            </p>
           ) : null}
 
           <h1 className="mt-1 font-display text-3xl font-semibold text-navy md:text-4xl">

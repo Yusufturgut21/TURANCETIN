@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SmartImage } from "@/components/ui/SmartImage";
 import { HeroBanner } from "@/components/banners/HeroBanner";
 import { CategoryGrid } from "@/components/categories/CategoryGrid";
 import { ProductCard } from "@/components/products/ProductCard";
@@ -9,7 +8,6 @@ import { FadeIn, SectionHeading } from "@/components/ui/Motion";
 import {
   getActiveBanners,
   getActiveCategories,
-  getActiveBrands,
   getProducts,
 } from "@/lib/queries";
 import { getSiteSettings } from "@/lib/settings";
@@ -22,27 +20,25 @@ export const dynamic = "force-dynamic";
 export default async function HomePage() {
   let banners: Awaited<ReturnType<typeof getActiveBanners>> = [];
   let categories: Awaited<ReturnType<typeof getActiveCategories>> = [];
-  let brands: Awaited<ReturnType<typeof getActiveBrands>> = [];
   let featured = { items: [] as ProductDTO[] };
   let campaignProducts = { items: [] as ProductDTO[] };
   let productsByCategory: Record<string, ProductDTO[]> = {};
   let settings: Awaited<ReturnType<typeof getSiteSettings>> | null = null;
 
   try {
-    [banners, categories, brands, featured, campaignProducts, settings] =
+    [banners, categories, featured, campaignProducts, settings] =
       await Promise.all([
         getActiveBanners(),
         getActiveCategories(),
-        getActiveBrands(),
         getProducts({ featured: true, limit: 8 }),
-        getProducts({ campaign: true, limit: 8 }),
+        getProducts({ campaign: true, limit: 200 }),
         getSiteSettings(),
       ]);
 
     if (categories.length > 0) {
       const entries = await Promise.all(
         categories.map(async (category) => {
-          const result = await getProducts({ category: category.slug, limit: 8 });
+          const result = await getProducts({ category: category.slug, limit: 200 });
           return [category.slug, result.items] as const;
         })
       );
@@ -120,41 +116,6 @@ export default async function HomePage() {
             productsByCategory={productsByCategory}
           />
         </FadeIn>
-      ) : null}
-
-      {brands.length > 0 ? (
-        <section className="border-y border-border bg-surface py-14 md:py-16">
-          <div className="container-main">
-            <FadeIn>
-              <SectionHeading
-                title="Markalar"
-                subtitle="Çalıştığımız markalar."
-              />
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-                {brands.map((brand) => (
-                  <Link
-                    key={brand._id}
-                    href={`/marka/${brand.slug}`}
-                    className="flex h-24 items-center justify-center rounded-lg border border-border bg-white px-4 transition hover:border-navy/30 hover:shadow-sm"
-                  >
-                    {brand.logo?.url ? (
-                      <SmartImage
-                        src={brand.logo.url}
-                        alt={brand.name}
-                        width={120}
-                        height={48}
-                        keepAspect
-                        className="max-h-12 object-contain"
-                      />
-                    ) : (
-                      <span className="font-semibold text-navy">{brand.name}</span>
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </FadeIn>
-          </div>
-        </section>
       ) : null}
 
       {settings?.whyUsItems?.length ? (
