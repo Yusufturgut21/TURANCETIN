@@ -10,5 +10,12 @@ export async function GET() {
         mongoUriPrefix: process.env.MONGODB_URI?.substring(0, 20) ?? "NOT SET",
         nextAuthUrl: process.env.NEXTAUTH_URL ?? "NOT SET",
         nodeEnv: process.env.NODE_ENV,
+        cloudinary: {
+            hasCloudName: !!process.env.CLOUDINARY_CLOUD_NAME,
+            hasApiKey: !!process.env.CLOUDINARY_API_KEY,
+            hasApiSecret: !!process.env.CLOUDINARY_API_SECRET,
+            cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+            apiKey: process.env.CLOUDINARY_API_KEY,
+        }
     });
 }
