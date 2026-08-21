@@ -25,7 +25,11 @@ function LoginForm() {
     });
     setLoading(false);
     if (res?.error) {
-      setError("E-posta veya şifre hatalı.");
+      setError(
+        res.error === "Configuration"
+          ? "Sunucu yapılandırması eksik. Vercel Environment Variables içinde AUTH_SECRET / NEXTAUTH_SECRET kontrol edin."
+          : "E-posta veya şifre hatalı."
+      );
       return;
     }
     router.push(callbackUrl);
