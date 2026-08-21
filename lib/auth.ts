@@ -5,6 +5,15 @@ import { connectDB } from "@/lib/mongodb";
 import { User } from "@/models/User";
 import type { NextAuthConfig } from "next-auth";
 
+const authSecret =
+  process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || undefined;
+
+if (!authSecret && process.env.NODE_ENV === "production") {
+  console.error(
+    "[auth] AUTH_SECRET / NEXTAUTH_SECRET eksik. Vercel Environment Variables'a ekleyin."
+  );
+}
+
 export const authConfig: NextAuthConfig = {
   providers: [
     Credentials({
@@ -14,31 +23,38 @@ export const authConfig: NextAuthConfig = {
         password: { label: "Şifre", type: "password" },
       },
       async authorize(credentials) {
-        const email = credentials?.email as string | undefined;
-        const password = credentials?.password as string | undefined;
+        try {
+          const email = credentials?.email as string | undefined;
+          const password = credentials?.password as string | undefined;
 
-        if (!email || !password) {
+          if (!email || !password) {
+            return null;
+          }
+
+          await connectDB();
+          const user = await User.findOne({
+            email: email.toLowerCase().trim(),
+          }).lean();
+
+          if (!user || !user.isActive) {
+            return null;
+          }
+
+          const valid = await bcrypt.compare(password, user.password);
+          if (!valid) {
+            return null;
+          }
+
+          return {
+            id: String(user._id),
+            email: user.email,
+            name: user.name,
+            role: user.role,
+          };
+        } catch (error) {
+          console.error("[auth] authorize failed:", error);
           return null;
         }
-
-        await connectDB();
-        const user = await User.findOne({ email: email.toLowerCase() }).lean();
-
-        if (!user || !user.isActive) {
-          return null;
-        }
-
-        const valid = await bcrypt.compare(password, user.password);
-        if (!valid) {
-          return null;
-        }
-
-        return {
-          id: String(user._id),
-          email: user.email,
-          name: user.name,
-          role: user.role,
-        };
       },
     }),
   ],
@@ -48,6 +64,7 @@ export const authConfig: NextAuthConfig = {
   },
   pages: {
     signIn: "/admin/giris",
+    error: "/admin/giris",
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -65,7 +82,7 @@ export const authConfig: NextAuthConfig = {
       return session;
     },
   },
-  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
+  secret: authSecret,
   trustHost: true,
 };
 

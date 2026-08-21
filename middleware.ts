@@ -9,12 +9,19 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/admin") &&
     !pathname.startsWith("/admin/giris")
   ) {
-    const token = await getToken({
-      req: request,
-      secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
-    });
+    try {
+      const token = await getToken({
+        req: request,
+        secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
+      });
 
-    if (!token) {
+      if (!token) {
+        const url = new URL("/admin/giris", request.url);
+        url.searchParams.set("callbackUrl", pathname);
+        return NextResponse.redirect(url);
+      }
+    } catch (error) {
+      console.error("[middleware] getToken failed:", error);
       const url = new URL("/admin/giris", request.url);
       url.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(url);

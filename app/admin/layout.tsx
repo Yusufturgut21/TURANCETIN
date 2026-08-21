@@ -7,7 +7,12 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
+  let session = null;
+  try {
+    session = await auth();
+  } catch (error) {
+    console.error("[admin/layout] auth() failed:", error);
+  }
 
   // Login page kendi layout'unu kullanır
   if (!session?.user) {
