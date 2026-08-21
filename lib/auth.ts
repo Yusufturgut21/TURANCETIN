@@ -3,18 +3,10 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/mongodb";
 import { User } from "@/models/User";
-import type { NextAuthConfig } from "next-auth";
+import { authConfig } from "./auth.config";
 
-const authSecret =
-  process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || undefined;
-
-if (!authSecret && process.env.NODE_ENV === "production") {
-  console.error(
-    "[auth] AUTH_SECRET / NEXTAUTH_SECRET eksik. Vercel Environment Variables'a ekleyin."
-  );
-}
-
-export const authConfig: NextAuthConfig = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
       name: "credentials",
@@ -58,32 +50,5 @@ export const authConfig: NextAuthConfig = {
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-    maxAge: 60 * 60 * 24 * 7,
-  },
-  pages: {
-    signIn: "/admin/giris",
-    error: "/admin/giris",
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.role = (user as { role?: string }).role ?? "admin";
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.role = (token.role as string) ?? "admin";
-      }
-      return session;
-    },
-  },
-  secret: authSecret,
-  trustHost: true,
-};
+});
 
-export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
