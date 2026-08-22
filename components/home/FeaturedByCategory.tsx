@@ -72,7 +72,7 @@ export function FeaturedByCategory({
 
   const viewAllHref =
     active === ALL_KEY
-      ? "/urunler?featured=1"
+      ? "/urunler"
       : active === CAMPAIGN_KEY
         ? "/urunler?campaign=1"
         : `/kategori/${active}`;
@@ -82,10 +82,6 @@ export function FeaturedByCategory({
 
     async function load() {
       if (active === ALL_KEY) {
-        if (featuredProducts.length > 0) {
-          setProducts(featuredProducts);
-          setLoading(false);
-        } else {
           setLoading(true);
           try {
             const res = await fetch("/api/products?limit=12&sort=recommended", { cache: "no-store" });
@@ -95,15 +91,16 @@ export function FeaturedByCategory({
             };
             if (!cancelled && json.success && Array.isArray(json.data?.items)) {
               setProducts(json.data.items);
+            } else if (!cancelled && featuredProducts.length > 0) {
+              setProducts(featuredProducts);
             }
           } catch {
-            setProducts([]);
+            if (!cancelled) setProducts(featuredProducts);
           } finally {
             if (!cancelled) setLoading(false);
           }
+          return;
         }
-        return;
-      }
 
       setLoading(true);
 
