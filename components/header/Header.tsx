@@ -113,7 +113,10 @@ export function Header({
         </div>
       </div>
 
-      <div className="container-main flex h-16 items-center justify-between gap-4 md:h-[4.25rem]">
+      <div
+        className="container-main flex items-center justify-between gap-4 transition-all duration-200"
+        style={{ minHeight: Math.max(56, Math.round(logoSize * (40 / 140)) + 24) }}
+      >
         <Link href="/" className="flex min-w-0 items-center gap-2.5">
           {settings.logo?.url ? (
             <SmartImage
