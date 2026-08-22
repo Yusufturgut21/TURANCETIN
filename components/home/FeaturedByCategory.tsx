@@ -84,7 +84,7 @@ export function FeaturedByCategory({
       if (active === ALL_KEY) {
           setLoading(true);
           try {
-            const res = await fetch("/api/products?limit=12&sort=recommended", { cache: "no-store" });
+            const res = await fetch("/api/products?limit=1000&sort=recommended", { cache: "no-store" });
             const json = (await res.json()) as {
               success?: boolean;
               data?: { items?: ProductItem[] };
