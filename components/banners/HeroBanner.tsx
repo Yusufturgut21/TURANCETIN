@@ -73,32 +73,16 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Arka plan: Bulanık ve ölçeklenmiş versiyon */}
-          <div className="absolute inset-0 overflow-hidden bg-anthracite">
-            <SmartImage
-              src={current.image.url}
-              alt={current.title}
-              fill
-              priority
-              className="object-cover object-center opacity-50 blur-[40px] scale-110"
-              sizes="100vw"
-            />
-          </div>
-
-          {/* Ön plan: Orjinal oranında, yakınlaştırılmamış (contain) görsel */}
-          <div className="absolute inset-0 z-10">
-            <SmartImage
-              src={current.image.url}
-              alt={current.title}
-              fill
-              priority
-              className="object-contain object-center"
-              sizes="100vw"
-            />
-          </div>
-
-          <div className="absolute inset-0 z-20 bg-gradient-to-r from-black/80 via-black/40 to-black/10 pointer-events-none" />
-          <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+          <SmartImage
+            src={current.image.url}
+            alt={current.title}
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/15" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/20" />
         </motion.div>
       </AnimatePresence>
 
@@ -151,8 +135,9 @@ export function HeroBanner({ banners }: { banners: Banner[] }) {
                 type="button"
                 aria-label={`Banner ${i + 1}`}
                 onClick={() => setIndex(i)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? "w-10 bg-white" : "w-2.5 bg-white/40 hover:bg-white/70"
-                  }`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === index ? "w-10 bg-white" : "w-2.5 bg-white/40 hover:bg-white/70"
+                }`}
               />
             ))}
           </div>
