@@ -115,7 +115,7 @@ export function Header({
 
       <div
         className="container-main flex items-center justify-between gap-4 transition-all duration-200"
-        style={{ minHeight: Math.max(56, Math.round(logoSize * (40 / 140)) + 24) }}
+        style={{ minHeight: logoSize + 24 }}
       >
         <Link href="/" className="flex min-w-0 items-center gap-2.5">
           {settings.logo?.url ? (
@@ -123,10 +123,10 @@ export function Header({
               src={settings.logo.url}
               alt={brand}
               width={logoSize}
-              height={Math.round(logoSize * (40 / 140))}
+              height={logoSize}
               keepAspect
               className="object-contain"
-              style={{ maxHeight: Math.round(logoSize * (40 / 140)) }}
+              style={{ maxHeight: logoSize, maxWidth: logoSize }}
             />
           ) : (
             <span className="font-display text-lg font-semibold tracking-tight text-navy md:text-xl">

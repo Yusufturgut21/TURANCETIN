@@ -77,21 +77,27 @@ export default function AdminSettingsPage() {
             onChange={(img) => setField("logo", img)}
           />
           <div>
-            <label className="label-field">
-              Logo boyutu: <span className="font-semibold">{(form.logoSize as number) || 140}px</span>
-            </label>
-            <input
-              type="range"
-              min={60}
-              max={280}
-              step={4}
-              className="w-full accent-navy"
-              value={(form.logoSize as number) || 140}
-              onChange={(e) => setField("logoSize", Number(e.target.value))}
-            />
-            <div className="flex justify-between text-xs text-muted">
-              <span>60px</span>
-              <span>280px</span>
+            <label className="label-field">Logo boyutu</label>
+            <div className="flex items-center gap-3">
+              <input
+                type="range"
+                min={40}
+                max={600}
+                step={4}
+                className="flex-1 accent-navy"
+                value={(form.logoSize as number) || 140}
+                onChange={(e) => setField("logoSize", Number(e.target.value))}
+              />
+              <div className="flex items-center gap-1">
+                <input
+                  type="number"
+                  min={40}
+                  className="input-field w-20 text-center"
+                  value={(form.logoSize as number) || 140}
+                  onChange={(e) => setField("logoSize", Math.max(40, Number(e.target.value)))}
+                />
+                <span className="text-sm text-muted">px</span>
+              </div>
             </div>
           </div>
           <ImageUploader
