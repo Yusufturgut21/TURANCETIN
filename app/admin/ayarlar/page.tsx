@@ -76,6 +76,24 @@ export default function AdminSettingsPage() {
             value={(form.logo as { url: string; publicId: string }) || null}
             onChange={(img) => setField("logo", img)}
           />
+          <div>
+            <label className="label-field">
+              Logo boyutu: <span className="font-semibold">{(form.logoSize as number) || 140}px</span>
+            </label>
+            <input
+              type="range"
+              min={60}
+              max={280}
+              step={4}
+              className="w-full accent-navy"
+              value={(form.logoSize as number) || 140}
+              onChange={(e) => setField("logoSize", Number(e.target.value))}
+            />
+            <div className="flex justify-between text-xs text-muted">
+              <span>60px</span>
+              <span>280px</span>
+            </div>
+          </div>
           <ImageUploader
             label="Favicon"
             folder="turancetin/settings"

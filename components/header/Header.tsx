@@ -24,6 +24,7 @@ type Category = {
 type Settings = {
   shortName?: string;
   logo?: { url?: string };
+  logoSize?: number;
   phone?: string;
   whatsapp?: string;
 };
@@ -75,6 +76,7 @@ export function Header({
   const phone = settings.phone || "";
   const whatsapp = settings.whatsapp || "";
   const brand = settings.shortName || "TURANÇETİN";
+  const logoSize = settings.logoSize || 140;
 
   function submitSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -117,10 +119,11 @@ export function Header({
             <SmartImage
               src={settings.logo.url}
               alt={brand}
-              width={140}
-              height={40}
+              width={logoSize}
+              height={Math.round(logoSize * (40 / 140))}
               keepAspect
-              className="max-h-9 object-contain"
+              className="object-contain"
+              style={{ maxHeight: Math.round(logoSize * (40 / 140)) }}
             />
           ) : (
             <span className="font-display text-lg font-semibold tracking-tight text-navy md:text-xl">
