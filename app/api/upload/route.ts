@@ -38,6 +38,19 @@ export async function POST(request: NextRequest) {
     const result = await uploadImage(base64, folder);
     return successResponse(result);
   } catch (error) {
+    console.error("[upload]", error);
+    if (error instanceof Error && error.message) {
+      if (
+        error.message.includes("Invalid api_key") ||
+        error.message.includes("Invalid signature")
+      ) {
+        return errorResponse(
+          "Cloudinary anahtarları hatalı. Vercel'deki CLOUDINARY_* değerlerini kontrol edin (sonunda boşluk/satır olmasın).",
+          500
+        );
+      }
+      return errorResponse(error.message, 500);
+    }
     return handleApiError(error);
   }
 }

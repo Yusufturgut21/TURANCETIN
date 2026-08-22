@@ -13,6 +13,10 @@ export async function GET() {
     process.env.AUTH_URL || process.env.NEXTAUTH_URL
   );
   const siteUrl = Boolean(process.env.NEXT_PUBLIC_SITE_URL);
+  const cloudinary =
+    Boolean(process.env.CLOUDINARY_CLOUD_NAME) &&
+    Boolean(process.env.CLOUDINARY_API_KEY) &&
+    Boolean(process.env.CLOUDINARY_API_SECRET);
 
   const ok = authSecret && mongo;
 
@@ -24,9 +28,12 @@ export async function GET() {
         MONGODB_URI: mongo,
         AUTH_URL_or_NEXTAUTH_URL: authUrl,
         NEXT_PUBLIC_SITE_URL: siteUrl,
+        CLOUDINARY: cloudinary,
       },
       hint: ok
-        ? "Temel ayarlar tamam. Hâlâ giriş olmazsa admin kullanıcısını kontrol edin."
+        ? cloudinary
+          ? "Temel ayarlar tamam."
+          : "Görsel yükleme için CLOUDINARY_* değişkenlerini ekleyip Redeploy edin."
         : "false olan alanları Vercel → Settings → Environment Variables içine ekleyip Redeploy edin.",
     },
     { status: ok ? 200 : 503 }
