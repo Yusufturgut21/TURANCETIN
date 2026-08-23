@@ -11,6 +11,7 @@ import {
   Phone,
   ChevronDown,
   MessageCircle,
+  Images,
 } from "lucide-react";
 import { getWhatsAppUrl } from "@/lib/utils";
 
@@ -27,6 +28,7 @@ type Settings = {
   logoSize?: number;
   phone?: string;
   whatsapp?: string;
+  galleryImages?: { url: string; publicId: string }[];
 };
 
 export function Header({
@@ -38,6 +40,7 @@ export function Header({
 }) {
   const [open, setOpen] = useState(false);
   const [mega, setMega] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<
@@ -197,6 +200,51 @@ export function Header({
           <Link href="/hakkimizda" className="rounded-md px-3 py-2 text-sm font-medium text-anthracite hover:bg-surface hover:text-navy">
             Hakkımızda
           </Link>
+          {settings.galleryImages?.length ? (
+            <div
+              className="relative"
+              onMouseEnter={() => setGalleryOpen(true)}
+              onMouseLeave={() => setGalleryOpen(false)}
+            >
+              <button
+                type="button"
+                className="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-anthracite hover:bg-surface hover:text-navy"
+              >
+                <Images className="h-4 w-4" />
+                Galeri
+                <ChevronDown className="h-4 w-4" />
+              </button>
+              {galleryOpen ? (
+                <div className="absolute right-0 top-full z-50 w-[560px] rounded-2xl border border-border/80 bg-white/95 p-4 shadow-[0_24px_60px_rgba(11,31,54,0.14)] backdrop-blur">
+                  <div className="grid grid-cols-3 gap-2">
+                    {settings.galleryImages.slice(0, 6).map((img, i) => (
+                      <div
+                        key={i}
+                        className="relative aspect-square overflow-hidden rounded-lg border border-border/60"
+                      >
+                        <SmartImage
+                          src={img.url}
+                          alt={`Firma görseli ${i + 1}`}
+                          fill
+                          className="object-cover transition duration-300 hover:scale-105"
+                          sizes="180px"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3 border-t border-border pt-3">
+                    <Link
+                      href="/hakkimizda"
+                      className="text-sm font-semibold text-navy hover:underline"
+                      onClick={() => setGalleryOpen(false)}
+                    >
+                      Tüm görselleri gör →
+                    </Link>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
           <Link href="/iletisim" className="rounded-md px-3 py-2 text-sm font-medium text-anthracite hover:bg-surface hover:text-navy">
             İletişim
           </Link>
@@ -312,6 +360,12 @@ export function Header({
             <Link href="/hakkimizda" className="block rounded-md px-3 py-2.5 text-sm font-medium" onClick={() => setOpen(false)}>
               Hakkımızda
             </Link>
+            {settings.galleryImages?.length ? (
+              <Link href="/hakkimizda" className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium" onClick={() => setOpen(false)}>
+                <Images className="h-4 w-4" />
+                Galeri
+              </Link>
+            ) : null}
             <Link href="/iletisim" className="block rounded-md px-3 py-2.5 text-sm font-medium" onClick={() => setOpen(false)}>
               İletişim
             </Link>
