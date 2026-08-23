@@ -109,6 +109,18 @@ export default function AdminSettingsPage() {
         </section>
 
         <section className="space-y-4 rounded-lg border border-border bg-white p-5">
+          <h2 className="font-semibold">Firma Görselleri (Galeri)</h2>
+          <p className="text-xs text-muted">Hakkımızda sayfasında gösterilecek firma fotoğrafları.</p>
+          <ImageUploader
+            label="Fotoğraf ekle"
+            folder="turancetin/gallery"
+            multiple
+            value={(form.galleryImages as { url: string; publicId: string }[]) || []}
+            onChange={(imgs) => setField("galleryImages", imgs)}
+          />
+        </section>
+
+        <section className="space-y-4 rounded-lg border border-border bg-white p-5">
           <h2 className="font-semibold">İletişim</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>

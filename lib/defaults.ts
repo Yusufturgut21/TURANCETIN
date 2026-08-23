@@ -62,4 +62,5 @@ export type SiteSettingsDTO = typeof DEFAULT_SETTINGS & {
   logo?: { url?: string; publicId?: string } | null;
   favicon?: { url?: string; publicId?: string } | null;
   logoSize?: number;
+  galleryImages?: { url: string; publicId: string }[];
 };

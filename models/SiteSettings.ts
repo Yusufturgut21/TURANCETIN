@@ -19,6 +19,10 @@ const SiteSettingsSchema = new Schema(
       publicId: String,
     },
     logoSize: { type: Number, default: 140 },
+    galleryImages: {
+      type: [{ url: String, publicId: String }],
+      default: [],
+    },
     favicon: {
       url: String,
       publicId: String,

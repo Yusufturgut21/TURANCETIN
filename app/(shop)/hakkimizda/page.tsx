@@ -47,7 +47,26 @@ export default async function AboutPage() {
             </ul>
           </div>
         ) : null}
+
+        {(settings as { galleryImages?: { url: string }[] }).galleryImages?.length ? (
+          <div className="mt-12">
+            <h2 className="font-display text-2xl font-semibold text-navy">
+              Firmamızdan Görüntüler
+            </h2>
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {(settings as { galleryImages?: { url: string }[] }).galleryImages!.map((img, i) => (
+                <div key={i} className="relative aspect-square overflow-hidden rounded-lg border border-border">
+                  <img
+                    src={img.url}
+                    alt={`Firma görseli ${i + 1}`}
+                    className="h-full w-full object-cover transition duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
-    </div>
-  );
+    </div>  );
 }
