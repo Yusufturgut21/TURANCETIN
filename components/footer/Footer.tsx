@@ -38,7 +38,7 @@ export function Footer({ settings }: { settings: Settings }) {
               width={150}
               height={40}
               keepAspect
-              className="mb-5 max-h-10 object-contain brightness-0 invert"
+              className="mb-5 max-h-10 object-contain"
             />
           ) : (
             <p className="mb-5 font-display text-2xl font-semibold tracking-tight">{name}</p>
