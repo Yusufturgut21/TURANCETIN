@@ -234,7 +234,7 @@ export function Header({
                   </div>
                   <div className="mt-3 border-t border-border pt-3">
                     <Link
-                      href="/hakkimizda"
+                      href="/galeri"
                       className="text-sm font-semibold text-navy hover:underline"
                       onClick={() => setGalleryOpen(false)}
                     >
@@ -361,7 +361,7 @@ export function Header({
               Hakkımızda
             </Link>
             {settings.galleryImages?.length ? (
-              <Link href="/hakkimizda" className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium" onClick={() => setOpen(false)}>
+              <Link href="/galeri" className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium" onClick={() => setOpen(false)}>
                 <Images className="h-4 w-4" />
                 Galeri
               </Link>
