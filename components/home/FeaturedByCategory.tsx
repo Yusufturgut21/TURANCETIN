@@ -64,7 +64,7 @@ export function FeaturedByCategory({
   const tabs = useMemo(() => {
     const list: CategoryTab[] = [
       { _id: ALL_KEY, name: "Tümü", slug: ALL_KEY },
-      ...categories,
+      ...categories.filter((c) => !/kampanya/i.test(c.name)),
     ];
     return list;
   }, [categories]);
